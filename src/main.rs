@@ -19,6 +19,14 @@ fn main() {
     let mut y: i32 = 10;
     y += 5; // this is valid
 
+
+    // Ownership in rust
+
+    let s1: String = String::from("hello");
+    let s2: String = s1; // s1 is moved to s2
+
+    // println!("{}", s1); // this will throw an error
+
     println!("{}", res);
 }
 
