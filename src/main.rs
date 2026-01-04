@@ -138,6 +138,8 @@
 
 // //
 
+
+
 use chrono::prelude::*;
 use dotenv::dotenv;
 use std::env;
@@ -156,4 +158,60 @@ fn main() {
     println!("Current UTC time: {}", utc);
 
     // Generics in rust
+    // Generics allow you to write code that can work with different data types while ensuring type safety at compile time.
+
+    println!("Sum : {}", sum_with_bounds(5,10));
+
+    let r = Rect { 
+        width: 10.0,
+        length: 20.0
+    };
+
+    print_area_shape(r);
+
+    // println!("Area of rectangle: {}", r.area());
+}
+
+// fn sum<T>(a: T, b: T) -> T {
+//     return a + b;
+// } 
+// this will throw an error as + operator is not defined for generic type T for removing this error we can use trait bounds
+
+fn sum_with_bounds<T: std::ops::Add<Output = T>>(a: T, b: T) -> T {
+    return a + b;
+}
+
+
+// Generics with structs
+
+
+trait Shape {
+    fn area(&self) -> f32;
+
+}
+struct Rect {
+    width: f32,
+    length: f32
+}
+
+// impl<T: std::ops::Mul<Output = T> + Copy> Rect<T> {
+//     fn area(&self) -> T {
+//         return self.width * self.length;
+//     }
+// }
+
+// trait
+
+
+
+// whoever implements this trait has to define area function
+
+impl Shape for Rect {
+    fn area(&self) -> f32 {
+        return self.width * self.length;
+    }
+}
+
+fn print_area_shape<T: Shape>(s: T) {
+    println!("Area: {}", s.area());
 }
